@@ -1,8 +1,6 @@
 import com.google.inject.AbstractModule
 import java.time.Clock
 
-import akka.actor.{ActorSystem, Props}
-import com.typesafe.akka.extension.quartz.QuartzSchedulerExtension
 import services.{ApplicationTimer, AtomicCounter, Counter}
 
 /**
@@ -27,10 +25,12 @@ class Module extends AbstractModule {
     bind(classOf[Counter]).to(classOf[AtomicCounter])
 
     // Start scheduling
-    val system = ActorSystem("SchedulerSystem")
-    val scheduler = QuartzSchedulerExtension(system)
-    val receiver = system.actorOf(Props(new HelloActor))
-    scheduler.schedule("every15seconds", receiver, HelloActor.SayHello("Peter"), None)
+//    val system = ActorSystem("SchedulerSystem")
+//    val scheduler = QuartzSchedulerExtension(system)
+//    val receiver = system.actorOf(Props(new HelloActor))
+//    scheduler.schedule("every15seconds", receiver, HelloActor.SayHello("Peter"), None)
+
+    bind(classOf[ApplicationStart]).asEagerSingleton()
 
   }
 
